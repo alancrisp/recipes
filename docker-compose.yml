@@ -11,3 +11,18 @@ services:
       - 3000:3000
     volumes:
       - ./:/usr/src/app
+
+  db:
+    image: mariadb:10
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MARIADB_DATABASE: "${DB_APP_DATABASE}"
+      MARIADB_USER: "${DB_APP_USER}"
+      MARIADB_PASSWORD: "${DB_APP_PASSWORD}"
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./docker/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+
+volumes:
+  dbdata:
