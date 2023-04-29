@@ -2,4 +2,15 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}!
+  p Click into a recipe to see the ingredient list
+
+  table(class='table')
+    thead
+      tr
+        th(scope='col') #
+        th(scope='col') Name
+    tbody
+      each recipe in recipes
+        tr
+          td(scope='row')= recipe.recipeId
+          td= recipe.name
