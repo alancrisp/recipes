@@ -9,4 +9,11 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/* TODO rename router if recipe routes stay here */
+router.get('/recipe/:recipeId', (req, res, next) => {
+    recipeRepo.getRecipe(req.params.recipeId, (err, rows, fields) => {
+      res.render('recipe', { recipe: rows[0] });
+    });
+});
+
 module.exports = router;

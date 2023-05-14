@@ -13,4 +13,5 @@ block content
       each recipe in recipes
         tr
           td(scope='row')= recipe.recipeId
-          td= recipe.name
+          td
+            a(href='/recipe/'+recipe.recipeId)= recipe.name
