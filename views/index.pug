@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  a(class='btn btn-primary', style='float: right', data-bs-toggle='modal' data-bs-target='#addRecipeModal') Add Recipe
   h1= title
   p Click into a recipe to see the ingredient list
 
@@ -15,3 +16,19 @@ block content
           td(scope='row')= recipe.recipeId
           td
             a(href='/recipe/'+recipe.recipeId)= recipe.name
+
+  // Move to a standalone template?
+  div(class='modal fade', id='addRecipeModal', tabindex='-1')
+    div(class='modal-dialog')
+      div(class='modal-content')
+        form(method='post', action='/recipe/add')
+          div(class='modal-header')
+            h1(class='modal-title fs-5', id='addRecipeModalLabel') Add Recipe
+            button(type='button', class='btn btn-close', data-bs-dismiss='modal')
+          div(class='modal-body')
+            div(class='form-group')
+              label Recipe Name
+              input(type='text', name='name', class='form-control')
+          div(class='modal-footer')
+            button(type='button', class='btn btn-secondary', data-bs-dismiss='modal') Cancel
+            input(type='submit', class='btn btn-primary', value='Add Recipe')

@@ -16,4 +16,10 @@ router.get('/recipe/:recipeId', (req, res, next) => {
     });
 });
 
+router.post('/recipe/add', (req, res, next) => {
+    recipeRepo.createRecipe(req.body.name, (err, results, fields) => {
+        res.redirect('/recipe/' + results.insertId);
+    });
+});
+
 module.exports = router;
