@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express"
 var router = express.Router();
-var recipeRepo = require('../src/repo/recipe.repo.js');
+var recipeRepo = require('../src/repo/recipe.repo');
 
 router.get('/', (req: Request, res: Response, next: NextFunction) => {
   recipeRepo.getRecipes().then((recipes: any) => {

@@ -61,7 +61,7 @@ typings/
 .next
 
 # Credentials
-config/db.config.js
+config/db.config.ts
 
 # Build
 dist
