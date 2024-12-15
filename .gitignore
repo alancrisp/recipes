@@ -62,3 +62,6 @@ typings/
 
 # Credentials
 config/db.config.js
+
+# Build
+dist
