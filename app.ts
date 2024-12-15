@@ -1,4 +1,4 @@
-import express, { Express, Application, Request, Response, NextFunction } from "express"
+import express, { Application, Request, Response, NextFunction } from "express"
 var createError = require('http-errors');
 var path = require('path');
 var cookieParser = require('cookie-parser');
