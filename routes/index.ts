@@ -1,7 +1,8 @@
 import express, { Request, Response, NextFunction } from "express"
-var router = express.Router();
 import getConnection from "../src/db";
 import RecipeRepo from '../src/repo/RecipeRepo';
+
+const router = express.Router();
 
 router.get('/', async (req: Request, res: Response, next: NextFunction) => {
   const recipeRepo = new RecipeRepo(await getConnection());
