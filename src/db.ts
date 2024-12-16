@@ -1,20 +1,19 @@
-import mysql from "mysql2";
-import dbConfig from "../config/db.config";
+import mysql, { ResultSetHeader } from 'mysql2/promise';
+import dbConfig from '../config/db.config';
 
-const getConnection = async () => {
-  const connection = await mysql.createConnection({
-    host: dbConfig.HOST,
-    user: dbConfig.USER,
-    password: dbConfig.PASSWORD,
-    database: dbConfig.DB,
-  });
+const pool = mysql.createPool({
+  host: dbConfig.HOST,
+  user: dbConfig.USER,
+  password: dbConfig.PASSWORD,
+  database: dbConfig.DB,
+});
 
-  connection.connect(err => {
-    if (err) throw err;
-    console.log('Successfully connected to the database.');
-  });
+export async function execute<T>(sql: string, params: any): Promise<Partial<T>[]> {
+  const [results] = await pool.execute(sql, params);
+  return results as T[];
+}
 
-  return connection;
+export async function insert(sql: string, params: any) {
+  const [result] = await pool.execute(sql, params);
+  return result as ResultSetHeader;
 };
-
-export = getConnection;
