@@ -13,7 +13,7 @@ export async function execute<T>(sql: string, params: any): Promise<Partial<T>[]
   return results as T[];
 }
 
-export async function insert(sql: string, params: any) {
+export async function insert(sql: string, params: any): Promise<ResultSetHeader> {
   const [result] = await pool.execute(sql, params);
   return result as ResultSetHeader;
 };
