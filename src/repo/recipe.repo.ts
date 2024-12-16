@@ -7,7 +7,7 @@ interface Recipe extends RowDataPacket {
 }
 
 export async function getRecipes(): Promise<Recipe[]> {
-  const result = await execute<Recipe>('SELECT * FROM recipe', []);
+  const result = await execute<Recipe>('SELECT * FROM recipe');
   return result as Recipe[];
 }
 

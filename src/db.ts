@@ -8,12 +8,12 @@ const pool = mysql.createPool({
   database: dbConfig.DB,
 });
 
-export async function execute<T>(sql: string, params: any): Promise<Partial<T>[]> {
+export async function execute<T>(sql: string, params?: any[]): Promise<Partial<T>[]> {
   const [results] = await pool.execute(sql, params);
   return results as T[];
 }
 
-export async function insert(sql: string, params: any): Promise<ResultSetHeader> {
+export async function insert(sql: string, params?: any[]): Promise<ResultSetHeader> {
   const [result] = await pool.execute(sql, params);
   return result as ResultSetHeader;
 };
