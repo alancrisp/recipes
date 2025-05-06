@@ -1,22 +1,30 @@
-import type { RowDataPacket } from "mysql2";
-import { execute, insert } from "../db";
+import { ResultSetHeader, type Pool, RowDataPacket } from "mysql2/promise";
 
 interface Recipe extends RowDataPacket {
   recipeId: number;
   name: string;
 }
 
-export async function getRecipes() {
-  const result = await execute<Recipe>('SELECT * FROM recipe', []);
-  return result as Recipe[];
-}
+export default class RecipeRepo
+{
+    private pool: Pool;
 
-export async function getRecipe(recipeId: number) {
-  const result = await execute<Recipe>('SELECT * FROM recipe WHERE recipeId = ?', [recipeId]);
-  return result[0] as Recipe;
-}
+    constructor(pool: Pool) {
+        this.pool = pool;
+    }
 
-export async function createRecipe(name: string) {
-  const result = await insert('INSERT INTO recipe (name) VALUES (?)', [name]);
-  return result.insertId;
+    async getRecipes(): Promise<Partial<Recipe>[]> {
+        const [results] = await this.pool.execute('SELECT * FROM recipe', []);
+        return results as Recipe[];
+    }
+
+    async getRecipe(recipeId: number): Promise<Recipe> {
+        const [results] = await this.pool.query<Recipe[]>('SELECT * FROM recipe WHERE recipeId = ?', [recipeId]);
+        return results[0];
+    }
+
+    async createRecipe(name: string): Promise<number> {
+        const [result] = await this.pool.query<ResultSetHeader>('INSERT INTO recipe (name) VALUES (?)', [name]);
+        return result.insertId;
+    }
 }
