@@ -1,6 +1,6 @@
 import { ResultSetHeader, type Pool, RowDataPacket } from "mysql2/promise";
 
-interface Recipe extends RowDataPacket {
+export interface Recipe extends RowDataPacket {
   recipeId: number;
   name: string;
 }
@@ -28,3 +28,5 @@ export default class RecipeRepo
         return result.insertId;
     }
 }
+
+//module.exports.RecipeRepo = RecipeRepo;
